@@ -19,12 +19,12 @@ public class InventoryServiceApplication {
 
 		return args -> {
 			Inventory inventory = new Inventory();
-			inventory.setSkuId("google_pixel");
+			inventory.setSkuCode("google_pixel");
 			inventory.setQuantity(100);
 
 			Inventory inventory1 = new Inventory();
-			inventory1.setSkuId("google_pixel_red");
-			inventory1.setQuantity(51);
+			inventory1.setSkuCode("google_pixel_red");
+			inventory1.setQuantity(0);
 
 			inventoryRepository.save(inventory);
 			inventoryRepository.save(inventory1);
