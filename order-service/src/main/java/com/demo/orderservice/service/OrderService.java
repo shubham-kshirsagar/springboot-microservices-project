@@ -24,7 +24,7 @@ public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
-    private final WebClient webClient;
+    private final WebClient.Builder webClientBuilder;
 
     public void placeOrder(OrderRequest orderRequest) {
 
@@ -44,9 +44,10 @@ public class OrderService {
 
         //To check if the product is available in the inventory
         //by calling inventory-service
-        InventoryResponse[] inventoryResponseArray = webClient.get()
-                .uri("http://localhost:8082/api/inventory",uriBuilder -> uriBuilder.queryParam("skuCode", skuCodes).build())
+        InventoryResponse[] inventoryResponseArray = webClientBuilder.build().get()
+                .uri("http://inventory-service/api/inventory",uriBuilder -> uriBuilder.queryParam("skuCode", skuCodes).build())
                 .retrieve()
+
                 .bodyToMono(InventoryResponse[].class)
                 .block();
         boolean allProductsInStock = false;
